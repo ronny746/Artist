@@ -22,4 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('register',[Controller::class,'register']);
 Route::get('loginwithemail',[Controller::class,'loginwithemail']);
-Route::put('createPin',[Controller::class,'createPin']);
+Route::post('createPin',[Controller::class,'createPin']);

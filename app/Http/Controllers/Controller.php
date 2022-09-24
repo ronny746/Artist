@@ -77,14 +77,14 @@ class Controller extends BaseController
             $user = User::find($req->id);
             $user->f_name=$req->f_name;
             $user->l_name=$req->l_name;
-            $user->email=$req->email;
+           // $user->email=$req->email;
             $user->password=$req->password;
             $user->image=$imagename;
-            $user->pin=$req->pin;
+             $user->pin=$req->pin;
             $result = $user->save();
-            if($result){
+            if($user){
                 return[
-                    'message'=>'success'
+                    'message'=>$user
                 ];
             }else{
                 return[

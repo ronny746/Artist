@@ -55,7 +55,7 @@ class Controller extends BaseController
             }else{
                 $user= User::where(['email'=>$req->email])->first();
                
-                return ["Result"=>'Success',$user]; 
+                return ["Result"=>$user]; 
             }
         
         }else{

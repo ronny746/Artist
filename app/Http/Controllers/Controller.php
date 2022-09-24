@@ -44,26 +44,23 @@ class Controller extends BaseController
 
     }
 
-    public function loginwithemail() {
+    public function loginwithemail(Request $req) {
         
-        // $user= User::where(['email'=>$req->email])->first();
+        $user= User::where(['email'=>$req->email])->first();
       
 
-        // if($user != null){
-        //     if($req->password != $user->password){
-        //         return ["Result"=>"Wrong credentials please try again"];
-        //     }else{
-        //         $user= User::where(['email'=>$req->email])->first();
+        if($user != null){
+            if($req->password != $user->password){
+                return ["Result"=>"Wrong credentials please try again"];
+            }else{
+                $user= User::where(['email'=>$req->email])->first();
                
-        //         return ["Result"=>'Success',$user]; 
-        //     }
+                return ["Result"=>'Success',$user]; 
+            }
         
-        // }else{
-        //     return ["Result"=>"Something Wrong please try again"];
-        // }
-        return[
-            "Hello Rohit"
-        ];
+        }else{
+            return ["Result"=>"Something Wrong please try again"];
+        }
      
     }
     public function createPin(Request $req){

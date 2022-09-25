@@ -15,7 +15,9 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+        return([
+            'artist'=>Artist::All()
+        ]);
     }
 
     /**

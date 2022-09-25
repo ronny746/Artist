@@ -27,8 +27,11 @@ Route::get('adminlogin',[AdminController::class,'login']);
 Route::post('adminregister',[AdminController::class,'register']);
 Route::get('artistlogin',[ArtistController::class,'login']);
 Route::post('artistregister',[ArtistController::class,'register']);
+Route::get('allartists',[ArtistController::class,'index']);
 Route::get('userlogin',[PeopleController::class,'login']);
 Route::post('userregister',[PeopleController::class,'register']);
+Route::get('allusers',[PeopleController::class,'index']);
+
 Route::middleware(['auth:sanctum'])->group(function(){
     
     Route::get('adminlogout',[AdminController::class,'destroy']);

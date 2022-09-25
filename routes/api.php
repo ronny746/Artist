@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Controller;
 
 /*
@@ -18,12 +19,11 @@ use App\Http\Controllers\Controller;
 // git add .
 // git commit -m "commit"
 // git push -f origin main
+Route::get('adminlogin',[AdminController::class,'login']);
+Route::post('adminregister',[AdminController::class,'register']);
+Route::middleware(['auth:sanctum'])->group(function(){
+    
+    Route::get('adminlogout',[AdminController::class,'destroy']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
 });
 
-
-Route::post('register',[Controller::class,'register']);
-Route::get('loginwithemail',[Controller::class,'loginwithemail']);
-Route::post('createPin',[Controller::class,'createPin']);

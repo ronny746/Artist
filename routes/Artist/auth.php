@@ -2,11 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArtistController;
-use App\Http\Controllers\PeopleController;
-
-
 
 
 /*
@@ -23,17 +19,11 @@ use App\Http\Controllers\PeopleController;
 // git add .
 // git commit -m "commit"
 // git push -f origin main
-Route::get('adminlogin',[AdminController::class,'login']);
-Route::post('adminregister',[AdminController::class,'register']);
 Route::get('artistlogin',[ArtistController::class,'login']);
 Route::post('artistregister',[ArtistController::class,'register']);
-Route::get('userlogin',[PeopleController::class,'login']);
-Route::post('userregister',[PeopleController::class,'register']);
 Route::middleware(['auth:sanctum'])->group(function(){
     
-    Route::get('adminlogout',[AdminController::class,'destroy']);
     Route::get('artistlogout',[ArtistController::class,'destroy']);
-    Route::get('userlogout',[PeopleController::class,'destroy']);
 
 });
 

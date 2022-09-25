@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ArtistController extends Controller
 {
@@ -22,10 +23,24 @@ class ArtistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function register(Request $request)
+    {    
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required|confirmed'
+        ]);
+
+        $artist = Artist::create([
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        $token = $artist->createToken('myToken')->plainTextToken;
+        return response([
+           'artist'=>$artist,
+            'token'=>$token
+        ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -44,11 +59,26 @@ class ArtistController extends Controller
      * @param  \App\Models\Artist  $artist
      * @return \Illuminate\Http\Response
      */
-    public function show(Artist $artist)
+    public function login(Request $request)
     {
-        //
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+           
+       $artist = Artist::where('email',$request->email)->first();
+       if(!$artist || !Hash::check($request->password, $artist->password)){
+        return response([
+            'message'=>"Invalid Credentials."
+        ]);
+       }else{
+        $token = $artist->createToken('myToken')->plainTextToken;
+        return response([
+             $artist,
+            'token'=>$token
+        ]);
+       }
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -80,6 +110,9 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        //
+        auth()->user()->tokens()->delete();
+        return response([
+            'message' => 'succefully Logged Out!!'
+        ]);
     }
 }
